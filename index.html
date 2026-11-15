@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TBR – Author Overview</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>To Be Read</h1>
+
+    <p>
+        Explore your TBR pile by author.
+        See your reading history, ratings and unread books.
+    </p>
+
+    <!-- CSV UPLOAD -->
+
+    <section class="upload-section">
+
+        <h2>Upload your CSV</h2>
+
+        <input
+            type="file"
+            id="csvFile"
+            accept=".csv"
+        >
+
+        <div id="status">
+            Please upload your book CSV file.
+        </div>
+
+    </section>
+
+
+    <!-- GENERAL STATISTICS -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-value" id="totalAuthors">–</div>
+            <div class="stat-label">Authors</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-value" id="totalRead">–</div>
+            <div class="stat-label">Books read</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-value" id="totalTBR">–</div>
+            <div class="stat-label">Books on TBR</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-value" id="averageRating">–</div>
+            <div class="stat-label">Average rating</div>
+        </div>
+
+    </section>
+
+
+    <!-- AUTHOR OVERVIEW -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <h2>Author Overview</h2>
+
+            <div class="filters">
+
+                <input
+                    type="text"
+                    id="authorSearch"
+                    placeholder="Search author..."
+                >
+
+                <select id="authorSort">
+
+                    <option value="tbr">Most TBR books</option>
+                    <option value="read">Most books read</option>
+                    <option value="rating">Highest average rating</option>
+                    <option value="name">Author name</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Read</th>
+                        <th>Average rating</th>
+                        <th>TBR</th>
+                        <th>TBR tags</th>
+                    </tr>
+                </thead>
+
+                <tbody id="authorTable">
+
+                    <tr>
+                        <td colspan="5" class="empty-message">
+                            Upload a CSV file to see your authors.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- AUTHOR DETAILS -->
+
+    <section id="authorDetails" class="panel hidden">
+
+        <div class="author-header">
+
+            <div>
+                <h2 id="selectedAuthor"></h2>
+                <div class="stat-label">Author details</div>
+            </div>
+
+            <div class="author-stats">
+
+                <div class="author-stat">
+                    <strong id="authorRead">0</strong>
+                    Books read
+                </div>
+
+                <div class="author-stat">
+                    <strong id="authorRating">–</strong>
+                    Average rating
+                </div>
+
+                <div class="author-stat">
+                    <strong id="authorTBR">0</strong>
+                    TBR books
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RATINGS -->
+
+        <h3 class="section-title">
+            Ratings of books read
+        </h3>
+
+        <div id="ratingChart" class="chart"></div>
+
+
+        <!-- TBR BOOKS -->
+
+        <h3 class="section-title">
+            Books waiting to be read
+        </h3>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Book title</th>
+                        <th>Status</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbrTable"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- AUTHOR TAGS -->
+
+        <h3 class="section-title">
+            TBR tags
+        </h3>
+
+        <div id="authorTags" class="tag-container"></div>
+
+    </section>
+
+
+    <!-- GLOBAL TAG OVERVIEW -->
+
+    <section class="panel">
+
+        <h2>Tags across your TBR pile</h2>
+
+        <p class="stat-label">
+            Most common tags among all unread books.
+        </p>
+
+        <div id="tagChart" class="chart chart-small"></div>
+
+    </section>
+
+</div>
+
+
+<!-- APPLICATION JAVASCRIPT -->
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
