@@ -135,14 +135,27 @@
 
     <!-- AUTHOR DETAILS -->
 
-    <section id="authorDetails" class="panel hidden">
+  
+    <!-- AUTHOR DETAILS MODAL -->
 
-        <div class="author-header">
+    <div id="authorModal" class="modal hidden">
 
-            <div>
-                <h2 id="selectedAuthor"></h2>
-                <div class="stat-label">Author details</div>
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="selectedAuthor"></h2>
+                    <div class="stat-label">Author details</div>
+                </div>
+
+                <button id="closeModal" class="close-button">
+                    &times;
+                </button>
+
             </div>
+
+            <!-- AUTHOR STATISTICS -->
 
             <div class="author-stats">
 
@@ -163,52 +176,50 @@
 
             </div>
 
+            <!-- RATINGS -->
+
+            <h3 class="section-title">
+                Ratings of books read
+            </h3>
+
+            <div id="ratingChart" class="chart"></div>
+
+            <!-- TBR BOOKS -->
+
+            <h3 class="section-title">
+                Books waiting to be read
+            </h3>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Book title</th>
+                            <th>Status</th>
+                            <th>Tags</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tbrTable"></tbody>
+
+                </table>
+
+            </div>
+
+            <!-- AUTHOR TAGS -->
+
+            <h3 class="section-title">
+                TBR tags
+            </h3>
+
+            <div id="authorTags" class="tag-container"></div>
+
         </div>
 
+    </div>
 
-        <!-- RATINGS -->
-
-        <h3 class="section-title">
-            Ratings of books read
-        </h3>
-
-        <div id="ratingChart" class="chart"></div>
-
-
-        <!-- TBR BOOKS -->
-
-        <h3 class="section-title">
-            Books waiting to be read
-        </h3>
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Book title</th>
-                        <th>Status</th>
-                        <th>Tags</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tbrTable"></tbody>
-
-            </table>
-
-        </div>
-
-
-        <!-- AUTHOR TAGS -->
-
-        <h3 class="section-title">
-            TBR tags
-        </h3>
-
-        <div id="authorTags" class="tag-container"></div>
-
-    </section>
 
 
     <!-- GLOBAL TAG OVERVIEW -->

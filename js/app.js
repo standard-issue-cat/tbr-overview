@@ -455,6 +455,7 @@ function renderAuthorTable() {
    SHOW AUTHOR DETAILS
 ========================================= */
 
+
 function showAuthor(author) {
 
     selectedAuthor = author;
@@ -462,8 +463,7 @@ function showAuthor(author) {
     const data = authorData[author];
     const stats = getAuthorStats(author);
 
-    document.getElementById("authorDetails")
-        .classList.remove("hidden");
+    // Update author information
 
     document.getElementById("selectedAuthor")
         .innerText = author;
@@ -479,17 +479,21 @@ function showAuthor(author) {
             ? "–"
             : stats.average.toFixed(2);
 
+    // Update charts and tables
+
     renderRatingChart(data.read);
     renderTBRTable(data.tbr);
     renderAuthorTags(data.tbr);
 
-    document.getElementById("authorDetails")
-        .scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+    // Open modal
+
+    document.getElementById("authorModal")
+        .classList.remove("hidden");
+
+    document.body.classList.add("modal-open");
 
 }
+
 
 
 /* =========================================
@@ -799,5 +803,53 @@ function renderGlobalTagChart() {
         }
 
     );
+
+}
+
+
+/* =========================================
+   AUTHOR MODAL CONTROLS
+========================================= */
+
+const authorModal = document.getElementById("authorModal");
+
+
+// Close button
+
+document
+    .getElementById("closeModal")
+    .addEventListener("click", closeAuthorModal);
+
+
+// Click outside popup
+
+authorModal.addEventListener("click", function(event) {
+
+    if (event.target === authorModal) {
+        closeAuthorModal();
+    }
+
+});
+
+
+// Escape key
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Escape" &&
+        !authorModal.classList.contains("hidden")
+    ) {
+        closeAuthorModal();
+    }
+
+});
+
+
+function closeAuthorModal() {
+
+    authorModal.classList.add("hidden");
+
+    document.body.classList.remove("modal-open");
 
 }
