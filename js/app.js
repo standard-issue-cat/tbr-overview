@@ -706,6 +706,10 @@ function renderAuthorTags(books) {
    GLOBAL TAG CHART
 ========================================= */
 
+/* =========================================
+   GLOBAL TAG CHART
+========================================= */
+
 function renderGlobalTagChart() {
 
     const counts = {};
@@ -731,6 +735,8 @@ function renderGlobalTagChart() {
         document.getElementById("tagChart")
             .innerHTML =
             '<div class="empty-message">No tags found in your TBR pile.</div>';
+
+        document.getElementById("tagBookList").innerHTML = "";
 
         return;
 
@@ -802,7 +808,73 @@ function renderGlobalTagChart() {
             displayModeBar: false
         }
 
-    );
+    ).then(chart => {
+
+        // Handle clicks on individual bars.
+        chart.on("plotly_click", function(event) {
+
+            const clickedTag = event.points[0].y;
+
+            showBooksWithTag(clickedTag);
+
+        });
+
+    });
+
+}
+
+
+/* =========================================
+   SHOW TBR BOOKS WITH SELECTED TAG
+========================================= */
+
+function showBooksWithTag(tag) {
+
+    const matchingBooks = allBooks
+        .filter(book =>
+            isTBR(book) &&
+            book.tags.includes(tag)
+        )
+        .sort((a, b) =>
+            a.cleanTitle.localeCompare(b.cleanTitle)
+        );
+
+    const container = document.getElementById("tagBookList");
+
+    container.innerHTML = `
+        <h3>Books tagged: ${escapeHTML(tag)}</h3>
+        <p class="stat-label">
+            ${matchingBooks.length} books
+        </p>
+    `;
+
+    if (matchingBooks.length === 0) {
+
+        container.innerHTML +=
+            '<p class="empty-message">No books found.</p>';
+
+        return;
+
+    }
+
+    const list = document.createElement("ul");
+
+    matchingBooks.forEach(book => {
+
+        const item = document.createElement("li");
+
+        item.innerHTML = `
+            <strong>${escapeHTML(book.cleanTitle)}</strong>
+            <span class="book-author">
+                ${escapeHTML(book.cleanAuthor)}
+            </span>
+        `;
+
+        list.appendChild(item);
+
+    });
+
+    container.appendChild(list);
 
 }
 
